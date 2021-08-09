@@ -1,10 +1,10 @@
+use fluvio_future::subscriber;
 use structopt::StructOpt;
 
+mod config;
 mod consume;
 mod error;
 mod produce;
-mod config;
-
 
 use consume::ConsumerOpts;
 use error::ConnectorError;
@@ -23,6 +23,7 @@ enum ConnectorOpts {
 
 #[tokio::main(flavor = "current_thread")]
 async fn main() -> Result<(), ConnectorError> {
+    subscriber::init_tracer(None);
     let opts = ConnectorOpts::from_args();
     match opts {
         ConnectorOpts::Produce(opts) => {

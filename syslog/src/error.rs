@@ -1,5 +1,4 @@
 use thiserror::Error;
-use crate::config::ConfigError;
 
 #[derive(Debug, Error)]
 pub enum ConnectorError {
@@ -14,4 +13,13 @@ pub enum ConnectorError {
 
     #[error("Config Error {0}")]
     Config(#[from] ConfigError),
+}
+
+#[derive(Debug, Error)]
+pub enum ConfigError {
+    #[error("Io Error {0}")]
+    IoError(#[from] std::io::Error),
+
+    #[error("Toml Error {0}")]
+    TomlError(#[from] toml::de::Error),
 }

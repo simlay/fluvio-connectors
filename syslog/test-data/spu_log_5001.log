@@ -1,0 +1,8 @@
+[2mAug 09 09:27:37.061[0m [32m INFO[0m fluvio_spu::config::cli: overriding log base: /home/simlay/.fluvio/data
+[2mAug 09 09:27:37.061[0m [32m INFO[0m fluvio_spu::config::cli: overriding public addr: 0.0.0.0:9010
+[2mAug 09 09:27:37.061[0m [32m INFO[0m fluvio_spu::config::cli: overriding private addr: 0.0.0.0:9011
+starting spu server (id:5001)
+[2mAug 09 09:27:37.063[0m [32m INFO[0m fluvio_spu::services::public: starting SPU: 5001 at public service at: 0.0.0.0:9010
+[2mAug 09 09:27:37.063[0m [32m INFO[0m fluvio_spu::services::internal: starting SPU: 5001 at internal service at: 0.0.0.0:9011
+SPU Version: 0.5.1 started successfully
+[2mAug 09 09:27:37.064[0m [32m INFO[0m [1msend_spu_registeration[0m[1m{[0msocket=8[1m}[0m: fluvio_spu::control_plane::dispatcher: spu '5001' registration successful

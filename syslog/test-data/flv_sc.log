@@ -1,0 +1,10 @@
+[2mAug 09 09:27:36.710[0m [32m INFO[0m fluvio_sc::cli: using default as namespace from kubernetes config
+starting sc server with k8: 0.6.5
+[2mAug 09 09:27:36.724[0m [32m INFO[0m fluvio_sc::init: SC Platform Version: 0.9.1
+[2mAug 09 09:27:36.725[0m [32m INFO[0m [1msc_private_server[0m[1m{[0maddress="0.0.0.0:9004"[1m}[0m: fluvio_sc::services::private_api: starting internal services
+[2mAug 09 09:27:36.725[0m [32m INFO[0m fluvio_sc::init::pub_server: using root authorization
+Streaming Controller started successfully
+[2mAug 09 09:27:36.754[0m [32m INFO[0m [1mPartitionController[0m:[1mupdate_election_from_spu_changes[0m:[1mforce_election_spu_off[0m: fluvio_sc::controllers::partitions::reducer: starting election when spu went offline spu=custom-spu-5001
+[2mAug 09 09:27:36.762[0m [32m INFO[0m [1mPartitionController[0m:[1mupdate_election_from_spu_changes[0m:[1mforce_election_spu_off[0m: fluvio_sc::controllers::partitions::reducer: starting election when spu went offline spu=custom-spu-5001
+[2mAug 09 09:27:37.064[0m [32m INFO[0m fluvio_sc::services::private_api::private_server: SPU connected spu_id=5001
+[2mAug 09 09:27:37.073[0m [32m INFO[0m [1mPartitionController[0m:[1mupdate_election_from_spu_changes[0m:[1mforce_election_spu_on[0m: fluvio_sc::controllers::partitions::reducer: start election spu went online spu=custom-spu-5001

@@ -1,0 +1,7 @@
+[[source]]
+name = "flv_sc.log"
+type = "syslog"
+filter_prefix = "fluvio"
+topic = "flv-sc-syslog"
+create_topic = true
+input_file = "/tmp/flv_sc.log"
