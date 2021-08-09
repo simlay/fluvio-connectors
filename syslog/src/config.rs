@@ -126,6 +126,7 @@ impl SyslogSource {
                                 break;
                             }
                             if let Some(line) = line.strip_suffix('\n') {
+                                tracing::info!("Sending {:?}", line);
                                 let _ = producer.send("", line).await?;
                             }
                         }
@@ -145,7 +146,13 @@ impl SyslogSource {
 
         Ok(())
     }
+    fn filter_line(&self, line: &String) -> bool {
+        use syslog_loose::parse_message;
+        let message = parse_message(line);
+        false
+    }
 }
+
 
 #[cfg(test)]
 mod connector_tests {
@@ -167,4 +174,20 @@ mod connector_tests {
             .expect("Failed to get config from file");
         println!("CONFIG: {:#?}", config);
     }
+    #[test]
+    fn test_parse() {
+        let connector = SyslogSource::default();
+        connector.filter_line(&"TEST".to_string());
+
+        let file = File::open("test-data/flv_sc.log").expect("Failed to open file");
+        let f = std::io::BufReader::new(file);
+        for line in f.lines() {
+            println!("Filtering line {:?}", line);
+            if let Ok(line) = line {
+                connector.filter_line(&line);
+            }
+        }
+
+    }
+
 }
