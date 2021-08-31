@@ -12,11 +12,11 @@ fluvio-connectors-common = { path = "../common" }
 thiserror = "1.0.25"
 k8-client = "5.1.5"
 
-fluvio = { path = "../../fluvio/src/client" }
-fluvio-cluster = { path = "../../fluvio/src/cluster/" }
-fluvio-extension-common = { path = "../../fluvio/src/extension-common/" }
-fluvio-controlplane-metadata = { path = "../../fluvio/src/controlplane-metadata/", features = ["k8", "use_serde"] }
-fluvio-sc-schema = { path = "../../fluvio/src/sc-schema//", features = ["use_serde"] }
+fluvio = { path = "../../fluvio/crates/fluvio/", version = "0.9.2" }
+fluvio-cluster = { path = "../../fluvio/crates/fluvio-cluster/" }
+fluvio-extension-common = { path = "../../fluvio/crates/fluvio-extension-common/" }
+fluvio-controlplane-metadata = { path = "../../fluvio/crates/fluvio-controlplane-metadata/", features = ["k8", "use_serde"] }
+fluvio-sc-schema = { path = "../../fluvio/crates/fluvio-sc-schema/", features = ["use_serde"] }
 fluvio-future = { version ="0.3.8", features = ["subscriber"] }
 
 colored = "2.0.0"
