@@ -4,13 +4,10 @@ BUILD_PROFILE=$(if $(RELEASE),release,debug)
 RELEASE_FLAG=$(if $(RELEASE),--release,)
 TARGET_FLAG=$(if $(TARGET),--target $(TARGET),)
 
-# Connectors
-TEST_CONNECTOR_BIN=$(if $(TARGET),./target/$(TARGET)/$(BUILD_PROFILE)/test-connector,./target/$(BUILD_PROFILE)/test-connector)
-SYSLOG_BIN=$(if $(TARGET),./target/$(TARGET)/$(BUILD_PROFILE)/syslog,./target/$(BUILD_PROFILE)/syslog)
-
 # These defaults are set for development purposes only. CI will override
 CONNECTOR_NAME?=test-connector
 IMAGE_NAME?=infinyon/fluvio-connect-$(CONNECTOR_NAME)
+CONNECTOR_BIN=$(if $(TARGET),./target/$(TARGET)/$(BUILD_PROFILE)/$(CONNECTOR_NAME),./target/$(BUILD_PROFILE)/$(CONNECTOR_NAME))
 
 smoke-test:
 	cargo run --bin fluvio-connector start ./test-connector/config.yaml
@@ -20,7 +17,7 @@ build:
 	cargo build $(TARGET_FLAG) $(RELEASE_FLAG)
 else
 build:
-	cargo build $(TARGET_FLAG) $(RELEASE_FLAG)
+	cargo build $(TARGET_FLAG) $(RELEASE_FLAG) --bin $(CONNECTOR_NAME)
 endif
 
 ifeq (${CI},true)
@@ -29,13 +26,16 @@ copy-binaries:
 else
 # When not in CI (i.e. development), build and copy the binaries alongside the Dockerfile
 copy-binaries: build
-	cp $(TEST_CONNECTOR_BIN) container-build
-	cp $(SYSLOG_BIN) container-build
+	cp $(CONNECTOR_BIN) container-build
 endif
 
-official-containers: copy-binaries
+official-container: copy-binaries
 	cd container-build && \
 		docker build -t $(IMAGE_NAME) --build-arg CONNECTOR_NAME=$(CONNECTOR_NAME) .
+
+CONNECTOR_LIST = syslog test-connector
+official-containers:
+	$(foreach var,$(CONNECTOR_LIST),CONNECTOR_NAME=$(var) make official-container;)
 
 clean:
 	cargo clean
@@ -45,6 +45,5 @@ clean:
 
 FLUVIO_CONNECTOR=cargo run --bin fluvio-connector
 smoke-test:
-	$(FLUVIO_CONNECTOR) delete test-connector
 	$(FLUVIO_CONNECTOR) create --config ./test-connector/config.yaml
 	$(FLUVIO_CONNECTOR) list
