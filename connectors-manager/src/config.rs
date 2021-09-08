@@ -37,10 +37,11 @@ impl ConnectorConfig {
 impl Into<ManagedConnectorConfig> for ConnectorConfig {
     fn into(self) -> ManagedConnectorConfig {
         let topic = self.topic.unwrap_or(self.type_.clone());
+        let args : Vec<String> = self.args.keys().zip(self.args.values()).flat_map(|(key, value)| [key.clone(), value.clone()]).collect::<Vec<_>>();
         ManagedConnectorConfig {
             type_: self.type_,
             topic,
-            args: self.args,
+            args,
         }
     }
 }
