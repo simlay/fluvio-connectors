@@ -3213,7 +3213,6 @@ dependencies = [
  "clap 3.2.19",
  "fluvio-connectors-common",
  "fluvio-future 0.4.2",
- "kafka",
  "rdkafka",
  "schemars",
  "serde",
@@ -4200,6 +4199,7 @@ dependencies = [
  "libc",
  "libz-sys",
  "num_enum",
+ "openssl-sys",
  "pkg-config",
 ]
 
