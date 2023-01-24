@@ -17,4 +17,4 @@ cfg-if = "1.0.0"
 
 # Configuration stuff
 serde = "1.0.127"
-toml = "0.5"
+toml = "0.6"
